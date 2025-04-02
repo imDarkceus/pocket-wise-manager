@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
@@ -21,6 +21,21 @@ const Settings: React.FC = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { state } = useExpense();
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem('theme') === 'dark' || 
+    (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  );
+  
+  useEffect(() => {
+    // Update class on document when dark mode changes
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [darkMode]);
   
   const exportData = () => {
     try {
@@ -75,7 +90,11 @@ const Settings: React.FC = () => {
                 <Moon className="h-5 w-5 text-muted-foreground" />
                 <Label htmlFor="dark-mode">Dark Mode</Label>
               </div>
-              <Switch id="dark-mode" disabled />
+              <Switch 
+                id="dark-mode" 
+                checked={darkMode}
+                onCheckedChange={setDarkMode}
+              />
             </div>
             
             <div className="flex items-center justify-between">
