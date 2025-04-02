@@ -36,18 +36,18 @@ const Dashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-background pb-20">
       {/* Header */}
-      <div className="bg-primary text-primary-foreground p-6">
+      <div className="bg-primary text-primary-foreground p-6 dark:bg-secondary">
         <h1 className="text-2xl font-bold mb-4">PocketWise</h1>
         <div className="flex items-center justify-between mb-2">
           <div>
-            <p className="text-primary-foreground/80 text-sm">Total Balance</p>
-            <p className="text-2xl font-bold">
+            <p className="text-primary-foreground/80 dark:text-white/80 text-sm">Total Balance</p>
+            <p className="text-2xl font-bold dark:text-white">
               {currencySymbol}{(totalIncome - totalExpenses).toFixed(2)}
             </p>
           </div>
           <Button 
             variant="outline" 
-            className="bg-primary-foreground/10 border-primary-foreground/20 hover:bg-primary-foreground/20"
+            className="bg-primary-foreground/10 border-primary-foreground/20 hover:bg-primary-foreground/20 dark:bg-white/10 dark:border-white/20 dark:hover:bg-white/20 dark:text-white"
             onClick={() => navigate('/statistics')}
           >
             <Wallet className="h-4 w-4 mr-2" />
@@ -56,26 +56,26 @@ const Dashboard: React.FC = () => {
         </div>
         
         <div className="flex space-x-4 mt-4">
-          <div className="bg-primary-foreground/10 rounded-lg p-3 flex-1">
+          <div className="bg-primary-foreground/10 dark:bg-white/10 rounded-lg p-3 flex-1">
             <div className="flex items-center">
               <div className="bg-green-500/20 rounded-full p-2 mr-2">
                 <ArrowUp className="h-4 w-4 text-green-500" />
               </div>
-              <p className="text-primary-foreground/80 text-sm">Income</p>
+              <p className="text-primary-foreground/80 dark:text-white/80 text-sm">Income</p>
             </div>
-            <p className="text-lg font-bold mt-1">
+            <p className="text-lg font-bold mt-1 dark:text-white">
               {currencySymbol}{totalIncome.toFixed(2)}
             </p>
           </div>
           
-          <div className="bg-primary-foreground/10 rounded-lg p-3 flex-1">
+          <div className="bg-primary-foreground/10 dark:bg-white/10 rounded-lg p-3 flex-1">
             <div className="flex items-center">
               <div className="bg-red-500/20 rounded-full p-2 mr-2">
                 <ArrowDown className="h-4 w-4 text-red-500" />
               </div>
-              <p className="text-primary-foreground/80 text-sm">Expenses</p>
+              <p className="text-primary-foreground/80 dark:text-white/80 text-sm">Expenses</p>
             </div>
-            <p className="text-lg font-bold mt-1">
+            <p className="text-lg font-bold mt-1 dark:text-white">
               {currencySymbol}{totalExpenses.toFixed(2)}
             </p>
           </div>
