@@ -4,7 +4,7 @@ import { Edit, Save } from 'lucide-react';
 import { useExpense } from '@/contexts/ExpenseContext';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
+import { CustomProgress } from '@/components/ui/custom-progress';
 
 const BudgetCard: React.FC = () => {
   const { state, setBudget, totalExpenses, remainingBudget } = useExpense();
@@ -87,7 +87,7 @@ const BudgetCard: React.FC = () => {
         </div>
       )}
       
-      <Progress 
+      <CustomProgress 
         value={progressPercentage} 
         className="h-2 mb-3" 
         indicatorClassName={getProgressColor()}
