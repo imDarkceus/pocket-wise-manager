@@ -12,15 +12,17 @@ import {
   Moon, 
   Download, 
   Send, 
-  Info
+  Info,
+  FileText
 } from 'lucide-react';
 import BottomNav from '@/components/BottomNav';
 import { useExpense } from '@/contexts/ExpenseContext';
+import { exportToPDF } from '@/utils/pdfExport';
 
 const Settings: React.FC = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { state } = useExpense();
+  const { state, totalExpenses, totalIncome } = useExpense();
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem('theme') === 'dark' || 
     (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
@@ -57,6 +59,29 @@ const Settings: React.FC = () => {
       toast({
         title: 'Export failed',
         description: 'There was an error exporting your data',
+        variant: 'destructive',
+      });
+    }
+  };
+  
+  const exportPDF = () => {
+    try {
+      exportToPDF(
+        state.transactions,
+        totalIncome,
+        totalExpenses,
+        state.monthlyBudget
+      );
+      
+      toast({
+        title: 'PDF Export successful',
+        description: 'Your financial report has been exported as PDF',
+      });
+    } catch (error) {
+      console.error('PDF export error:', error);
+      toast({
+        title: 'PDF Export failed',
+        description: 'There was an error generating your PDF report',
         variant: 'destructive',
       });
     }
@@ -115,7 +140,12 @@ const Settings: React.FC = () => {
           <div className="space-y-3">
             <Button variant="outline" className="w-full justify-start" onClick={exportData}>
               <Download className="h-4 w-4 mr-2" />
-              Export Data
+              Export Data (JSON)
+            </Button>
+            
+            <Button variant="outline" className="w-full justify-start" onClick={exportPDF}>
+              <FileText className="h-4 w-4 mr-2" />
+              Export Financial Report (PDF)
             </Button>
             
             <Button variant="outline" className="w-full justify-start" disabled>
