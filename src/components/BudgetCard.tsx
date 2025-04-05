@@ -33,9 +33,9 @@ const BudgetCard: React.FC = () => {
   
   // Determine progress color based on percentage
   const getProgressColor = () => {
-    if (progressPercentage >= 90) return 'bg-red-500';
-    if (progressPercentage >= 75) return 'bg-orange-500';
-    return 'bg-green-500';
+    if (progressPercentage >= 90) return 'bg-red-500 dark:bg-red-500';
+    if (progressPercentage >= 75) return 'bg-orange-500 dark:bg-orange-500';
+    return 'bg-green-500 dark:bg-green-500';
   };
 
   return (
@@ -100,7 +100,7 @@ const BudgetCard: React.FC = () => {
         </div>
         <div className="text-right">
           <p className="text-muted-foreground">Remaining</p>
-          <p className={`font-medium ${remainingBudget < 0 ? 'text-red-500' : ''}`}>
+          <p className={`font-medium ${remainingBudget < 0 ? 'text-red-500 dark:text-red-500' : ''}`}>
             {currencySymbol}{remainingBudget.toFixed(2)}
           </p>
         </div>
